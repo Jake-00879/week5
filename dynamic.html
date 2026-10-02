@@ -1,33 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-<style>
+    <style>
+        #div1 {
+            height: 100px;
+            width: 30pa;
+            background-color: antiquewhite;
+        }
+    </style>
 
-#div1{
-    height:100px;
-    width:30pa;
-    background-color: antiquewhite;
-}
+    <script>
 
-</style>
+        window.addEventListener("click", function (e) {
+            const btn1 = document.querySelector('#btn1')
+            if(e.target === btn1){
+                const div = document.querySelector('#div1');
+                div.innerHTML = "<h1>버튼이 클릭되었습니다.</h1>"
+            }
 
-<script>
 
-window.addEventListener("click" function{
+        });
 
-const btn1 = document.querySelector("#btn1)
-
-});
-
-</script>
+    </script>
 
 
 </head>
+
 <body>
     <div id="div1">Hello World!</div>
     <button id="btn1">click me!</button>
 </body>
+
 </html>
