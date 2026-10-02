@@ -6,21 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 
-    <script>
-        const addBtn = document.getElementById("addBtn");
-
-        function clickMe() {
-
-            const btn = document.querySelector("#clickMe");
-            btn.inneText = "clicked!";
-        }
-        window.addEventListener("load" function () {
-            const clickBtn2 = document.querySelector("#clickBtn2);
-       clickBtn2.addEventListener("click", function (event) {
-                clickBtn2.innerHTML = "<h1>버튼이 클릭되었습니다.</h2>"
-            });
-        });
-    </script>
 </head>
 
 <body>
@@ -30,7 +15,7 @@
 
     <!--클릭 버튼 실습-->
     <h3>inline JS</h3>
-    <button id="clickBtn" onclick="clickMe()">Click me</button>
+    <button id="inline" onclick="alert('Have a good day!')">Click me</button>
 
 
     <!--덧셈 실습-->
@@ -51,20 +36,13 @@
 
             document.querySelector("#result").value = result;
         }
-    </script>
+        function clickMe() {
+           alert('Have a good day');
+        }
+
+        
+</script>
 </body>
 
-</html>
-<script>
-    const clickBtn2 = document.querySelector("#clickBtn2);
-       clickBtn2.addEventListener("click", function (event) {
-        clickBtn2.innerHTML = "<h1>버튼이 클릭되었습니다.</h2>"
-    });
 
-    window.addEventListener("load" function () {
-        const clickBtn2 = document.querySelector("#clickBtn2);
-       clickBtn2.addEventListener("click", function (event) {
-            clickBtn2.innerHTML = "<h1>버튼이 클릭되었습니다.</h2>"
-        });
-    });
-</script>
+</html>
