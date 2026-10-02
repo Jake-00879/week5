@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        function delete(e){
+            e.target.parentElement.remove();
+
+        }
+    window.addEventListener("load", function(){
+        const fruit = document.querySelector("#fruit");
+        const abtn = document.querySelector("#btn");
+        const list = document.querySelector("#list");
+        
+        abtn.addEventListener("click", function(){
+            const fruitlist = fruit.value.split(",");
+            for(const one of fruitlist){
+                const li = document.createElement("li");
+                li.textContent = one;
+                list.appendChild(li);
+                
+                const button = document.createElement("button");
+                button.textContent = "X";
+                li.appendChild(button);
+                button.addEventListener("click", delete);
+
+            }
+        });
+
+    });
+    </script>
+
+
+
+</head>
+
+<body>
+    <form>
+        <input id="fruit" type="text">
+        <button id="btn">추가</button>
+        <ul id="list"></ul>
+    </form>
+</body>
+</html>

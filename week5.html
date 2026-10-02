@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+<script>
+
+    function checkForm(e){
+        const username = document.querySelector('#username')
+        if(username.value == ''){
+            alert('이름을 읽어주세요');
+            username.focus();
+            e.preventDefault();
+        }
+        alert('validation!');
+    }
+
+    function changeForm(){
+        const username = document.querySelector('#username')
+        username.focus();
+        username.placeholder = "이름을 꼭 입력해주세요"
+    }
+
+    window.addEventListener("load", function{
+        const form1 = document.querySelector("#form1");
+        form1.addEventListener("submit", checkForm)
+        form1.addEventListener("reset", changeForm)
+    });
+
+</script>
+
+
+
+</head>
+<body>
+
+<form action = "login_ok.html" method = "POST">
+    <input id="username" type = "text" name="username" placeholder="이름을 입력해주세요" required>
+    <input type="submit" value="로그인">
+    <input type="reset" value="리셋">
+</form>
+
+    
+</body>
+</html>
