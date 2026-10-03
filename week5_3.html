@@ -7,6 +7,10 @@
     <title>Document</title>
 
     <script>
+        function removeItem(e) {
+            e.preventDefault();
+            e.target.parentElement.remove();
+        }
 
         window.addEventListener("load", function () {
             const user = document.querySelector("#adduser");
@@ -24,6 +28,11 @@
                 uname.value = "";
                 email.value = "";
                 uname.focus();
+
+                const button = document.createElement("button");
+                button.textContent = "X";
+                list.appendChild(button);
+                button.addEventListener("click", removeItem);
             });
 
         });
