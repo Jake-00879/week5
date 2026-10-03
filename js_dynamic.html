@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <script>
+        function removeItem(e) {
+            e.preventDefault();
+            e.target.parentElement.remove();
+        }
+
+        window.addEventListener("load", function () {
+            const user = document.querySelector("#adduser");
+            const uname = document.querySelector("#name");
+            const email = document.querySelector("#email");
+            const btn = document.querySelector('#btn');
+            const list = document.querySelector("#list");
+
+            btn.addEventListener("click", function (e) {
+                e.preventDefault();
+
+                const li = document.createElement("li");
+                li.textContent = uname.value + " - " + email.value; // 이 부분 몰라서 ai한테 물어봄
+
+                const button = document.createElement("button");
+                button.textContent = "X";
+
+                button.addEventListener("click", removeItem);
+                li.appendChild(button);
+                list.appendChild(li);
+                uname.value = "";
+                email.value = "";
+                uname.focus();
+            });
+
+        });
+    </script>
+</head>
+
+<body>
+    <container>
+        <h2>사용자 등록</h2>
+        <form id="adduser">
+            <label for="name">이름</label><br>
+            <input id="name" type="text"><br>
+            <label for="email">Email</label><br>
+            <input id="email" type="email"><br>
+            <button id="btn" type="submit">등록</button>
+
+            <h2>등록 목록</h2>
+            <ul id="list"></ul>
+        </form>
+    </container>
+</body>
+
+</html>

@@ -5,54 +5,34 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <style>
+        #div1 {
+            height: 100px;
+            width: 30pa;
+            background-color: antiquewhite;
+        }
+    </style>
 
     <script>
-        function removeItem(e) {
-            e.preventDefault();
-            e.target.parentElement.remove();
-        }
 
-        window.addEventListener("load", function () {
-            const user = document.querySelector("#adduser");
-            const uname = document.querySelector("#name");
-            const email = document.querySelector("#email");
-            const btn = document.querySelector('#btn');
-            const list = document.querySelector("#list");
+        window.addEventListener("click", function (e) {
+            const btn1 = document.querySelector('#btn1')
+            if(e.target === btn1){
+                const div = document.querySelector('#div1');
+                div.innerHTML = "<h1>버튼이 클릭되었습니다.</h1>"
+            }
 
-            btn.addEventListener("click", function (e) {
-                e.preventDefault();
-
-                const li = document.createElement("li");
-                li.textContent = uname.value + " - " + email.value; // 이 부분 몰라서 ai한테 물어봄
-                list.appendChild(li);
-                uname.value = "";
-                email.value = "";
-                uname.focus();
-
-                const button = document.createElement("button");
-                button.textContent = "X";
-                list.appendChild(button);
-                button.addEventListener("click", removeItem);
-            });
 
         });
+
     </script>
+
+
 </head>
 
 <body>
-    <container>
-        <h2>사용자 등록</h2>
-        <form id="adduser">
-            <label for="name">이름</label><br>
-            <input id="name" type="text"><br>
-            <label for="email">Email</label><br>
-            <input id="email" type="email"><br>
-            <button id="btn" type="submit">등록</button>
-
-            <h2>등록 목록</h2>
-            <ul id="list"></ul>
-        </form>
-    </container>
+    <div id="div1">Hello World!</div>
+    <button id="btn1">click me!</button>
 </body>
 
 </html>
