@@ -70,12 +70,14 @@
 
                 const buttonm = document.createElement("button");
                 buttonm.textContent = "수정";
+                buttonm.className = "btn btn-sm btn-outline-primary me-1";
                 buttonm.addEventListener("click", function () {
                     modifyItem(todo.id);
                 });
 
                 const buttonx = document.createElement("button");
                 buttonx.textContent = "삭제";
+                buttonx.className = "btn btn-sm btn-outline-danger";
                 buttonx.addEventListener("click", function () {
                     removeItem(todo.id);
                 });
@@ -100,7 +102,7 @@
         }
 
         window.addEventListener("load", function () {
-
+            const form = document.querySelector('#list');
             const doname = document.querySelector("#name");
             const dokind = document.querySelector("#whatkind");
             const dowhen = document.querySelector("#date");
@@ -110,6 +112,10 @@
 
             dobtn.addEventListener("click", function (e) {
                 e.preventDefault();
+                if (!list.checkValidity()) {
+                    list.reportValidity(); 
+                    return; 
+                }
 
                 const checkedWho = document.querySelector('input[name="information"]:checked');
                 if (editingId !== null) {
@@ -127,66 +133,80 @@
                     dobtn.textContent = "등록";
                 } else {
                     addTodo(doname.value, dokind.value, dowhen.value, doemail.value, checkedWho ? checkedWho.value : "선택 안 함");
-                    }
-                    doname.value = "";
-                    dokind.value = "";
-                    dowhen.value = "";
-                    doemail.value = "";
-                    if (checkedWho) checkedWho.checked = false; // 이 부분도 ai 도움받음
-                    doname.focus();
-                    renderList();
+                }
+                doname.value = "";
+                dokind.value = "";
+                dowhen.value = "";
+                doemail.value = "";
+                if (checkedWho) checkedWho.checked = false; // 이 부분도 ai 도움받음
+                doname.focus();
+                renderList();
 
-                });
+            });
 
         });
     </script>
 </head>
 
-<body>
+<body class="bg-light">
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
         <div class="container justify-content-center">
             <a class="navbar-brand fw-bold" href="index.html">공동 Todo list 관리</a>
         </div>
     </nav>
 
-    <div class="container">
-        <form id="list">
-            <h2>일정 추가하기</h2>
-            <label for="what">일정 이름은?</label>
-            <input type="text" class="form-control" id="name" name="what" placeholder="일정의 이름을 적어주세요" required
-                minlength="2">
-            <label for="whatkind">어떤 종류의 일정인가요?</label>
-            <input list="schedule-types" class="form-control" name="category" id="whatkind" placeholder="ex.학교, 개인일정 등"
-                required minlength="2">
-            <datalist id="schedule-types">
-                <option value="학교"></option>
-                <option value="개인 일정"></option>
-                <option value="교회 일정"></option>
-                <option value="가족 일정"></option>
-                <option value="동아리 일정"></option>
-                <option value="여자친구"></option>
-            </datalist>
-            <label for="when">언제까지 or 언제인지</label>
-            <input type="date" class="form-control" id="date" name="when" required>
-            <div class="d-flex align-items-center gap-2 flex-nowrap">
-                <div class="form-check form-check-inline m-0 text-nowrap flex-shrink-0">
-                    <input class="form-check-input" type="radio" id="who1" name="information" value="남자친구">
-                    <label class="form-check-label" for="who1">남자친구</label>
-                </div>
-                <div class="form-check form-check-inline m-0 text-nowrap flex-shrink-0">
-                    <input class="form-check-input" type="radio" id="who2" name="information" value="여자친구">
-                    <label class="form-check-label" for="who2">여자친구</label>
-                </div>
-                <label for="whos" class="ms-2 mb-0 text-nowrap flex-shrink-0">이메일</label>
-                <input type="email" class="form-control form-control-sm flex-grow-1" id="email" name="whos"
-                    placeholder="이메일을 입력해주세요" required>
+    <div class="container" style="max-width: 800;">
+        <div class="card shadow-sm border-0 mb-4">
+            <div class="card-body p-4">
+                <form id="list">
+                    <h2 class="card-title h4 fw-bold text-primary mb-3">일정 추가하기</h2>
+                    <div class="mb-3">
+                    <label for="what">일정 이름은?</label>
+                    <input type="text" class="form-control" id="name" name="what" placeholder="일정의 이름을 적어주세요" required
+                        minlength="2">
+                    </div>
+                    <div class="mb-3">
+                    <label for="whatkind">어떤 종류의 일정인가요?</label>
+                    <input list="schedule-types" class="form-control" name="category" id="whatkind"
+                        placeholder="ex.학교, 개인일정 등" required minlength="2">
+                        </div>
+                    <datalist id="schedule-types">
+                        <option value="학교"></option>
+                        <option value="개인 일정"></option>
+                        <option value="교회 일정"></option>
+                        <option value="가족 일정"></option>
+                        <option value="동아리 일정"></option>
+                        <option value="여자친구"></option>
+                    </datalist>
+                    <div class="mb-3">
+                    <label for="when">언제까지 or 언제인지</label>
+                    <input type="date" class="form-control" id="date" name="when" required>
+                    </div>
+                    <div class="mb-3">
+                    <div class="d-flex align-items-center gap-2 flex-nowrap">
+                        <div class="form-check form-check-inline m-0 text-nowrap flex-shrink-0">
+                            <input class="form-check-input" type="radio" id="who1" name="information" value="남자친구">
+                            <label class="form-check-label" for="who1">남자친구</label>
+                        </div>
+                        <div class="form-check form-check-inline m-0 text-nowrap flex-shrink-0">
+                            <input class="form-check-input" type="radio" id="who2" name="information" value="여자친구">
+                            <label class="form-check-label" for="who2">여자친구</label>
+                        </div>
+                        <label for="whos" class="ms-2 mb-0 text-nowrap flex-shrink-0">이메일</label>
+                        <input type="email" class="form-control form-control-sm flex-grow-1" id="email" name="whos"
+                            placeholder="이메일을 입력해주세요" required>
+                    </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary" id="btn">등록</button>
+                </form>
             </div>
-            <button type="submit" class="btn btn-primary" id="btn">등록</button>
-        </form>
+        </div>
     </div>
-    <div class="container">
-        <h2>Todo list</h2>
-        <ul id="dolist"></ul>
+    <div class="container card shadow-sm border-0 mb-4" style="max-width: 800;">
+        <div class="card-body p-4">
+            <h2>Todo list</h2>
+            <ul id="dolist"></ul>
+        </div>
     </div>
 
 
