@@ -31,9 +31,11 @@
             dobtn: "남자친구"
         }];
 
+        let editingId = null;
+
         function removeItem(id) {
             const sure = confirm("삭제하시겠습니까?");
-            if(!sure){
+            if (!sure) {
                 return;
             }
             todoList = todoList.filter(todo => todo.id != id)
@@ -41,29 +43,40 @@
             renderList();
         }
         function modifyItem(id) {
+            const target = todoList.find(todo => todo.id == id);
+            if (!target) return;
+
+            document.querySelector('#name').value = target.doname;
+            document.querySelector('#whatkind').value = target.dokind;
+            document.querySelector('#date').value = target.dowhen;
+            document.querySelector('#email').value = target.doemail;
+
+            const radio = document.querySelector(`input[name="information"][value="${target.dobtn}"]`);
+            if (radio) radio.checked = true;
+            document.querySelector("#btn").textContent = "수정 완료";
+            editingId = id;
             //어떻게 수정 받을 건지
-            renderList();
         }
-        function renderList(){
-            
+        function renderList() {
+
             const list = document.querySelector('#dolist');
 
             list.innerHTML = "";
 
-            todoList.forEach(function(todo){ // ai도움 받음
+            todoList.forEach(function (todo) { // ai도움 받음
                 const li = document.createElement("li");
 
                 li.textContent = `${todo.doname} - ${todo.dokind}, ${todo.dowhen} - ${todo.dobtn}`;
 
                 const buttonm = document.createElement("button");
                 buttonm.textContent = "수정";
-                buttonm.addEventListener("click", function(){
+                buttonm.addEventListener("click", function () {
                     modifyItem(todo.id);
                 });
 
                 const buttonx = document.createElement("button");
                 buttonx.textContent = "삭제";
-                buttonx.addEventListener("click", function(){
+                buttonx.addEventListener("click", function () {
                     removeItem(todo.id);
                 });
 
@@ -87,7 +100,7 @@
         }
 
         window.addEventListener("load", function () {
-            
+
             const doname = document.querySelector("#name");
             const dokind = document.querySelector("#whatkind");
             const dowhen = document.querySelector("#date");
@@ -97,19 +110,33 @@
 
             dobtn.addEventListener("click", function (e) {
                 e.preventDefault();
-                const checkedWho = document.querySelector('input[name="information"]:checked'); //이 부분 몰라서 ai도움 받음
 
-                addTodo(doname.value, dokind.value, dowhen.value, doemail.value, checkedWho.value);
+                const checkedWho = document.querySelector('input[name="information"]:checked');
+                if (editingId !== null) {
+                    const target = todoList.find(todo => todo.id == editingId);
+                    if (target) {
+                        target.doname = document.querySelector("#name").value;
+                        target.dokind = document.querySelector("#whatkind").value;
+                        target.dowhen = document.querySelector("#date").value;
+                        target.doemail = document.querySelector("#email").value;
 
-                doname.value = "";
-                dokind.value = "";
-                dowhen.value = "";
-                doemail.value = "";
-                if (checkedWho) checkedWho.checked = false; // 이 부분도 ai 도움받음
-                doname.focus();
-                renderList();
+                        target.dobtn = checkedWho ? checkedWho.value : "선택 안 함";
 
-            });
+                    }
+                    editingId = null;
+                    dobtn.textContent = "등록";
+                } else {
+                    addTodo(doname.value, dokind.value, dowhen.value, doemail.value, checkedWho ? checkedWho.value : "선택 안 함");
+                    }
+                    doname.value = "";
+                    dokind.value = "";
+                    dowhen.value = "";
+                    doemail.value = "";
+                    if (checkedWho) checkedWho.checked = false; // 이 부분도 ai 도움받음
+                    doname.focus();
+                    renderList();
+
+                });
 
         });
     </script>
@@ -166,4 +193,3 @@
 </body>
 
 </html>
-
